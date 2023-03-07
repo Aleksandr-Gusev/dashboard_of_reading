@@ -20,7 +20,7 @@
     margin-bottom: 1px;
 }
 .progress_wrapper{
-    background-color:#4f5768;
+    background-color:#1e232c;
     width: 150px;
     height: 20px;
     vertical-align: middle;
@@ -29,17 +29,20 @@
     margin: 4px;
 }
 .progress{
+    position: relative;
     display: inline-block;
     background-color:$sc;
-    width: 50px;
+    width: 20px;
     height: 20px;
     border-radius:0;
     text-align: center;
     &__text{
+        position: absolute;
         color:#ffffff;
         font-weight: 300;
     }
-    overflow:hidden;
+    overflow:visible;
+    box-shadow: 0 0 10px 0 $sc;
 }
 .name_book{
     width: 360px;
@@ -54,6 +57,9 @@
     
     /* width: 36px;
     height: 36px; */
+}
+.btn-action img{
+    pointer-events: none; /* клик проходит сквозь img */
 }
 /* .btn_size{
     width: 90%;
@@ -91,7 +97,7 @@ button[data-action="delete"]:hover{
     margin: 4px;
     border-radius: 4px;
     &:hover{
-        background-color: #3db2ff;
+        background-color: #00baff;
         transition: 0.5s;
     }
 }
@@ -99,4 +105,8 @@ button[data-action="delete"]:hover{
 .empty-list__title{
     color:$fc;
     font-size: 500;
+}
+.name_book_done{
+    text-decoration: line-through;
+    color: #6dac82;
 }

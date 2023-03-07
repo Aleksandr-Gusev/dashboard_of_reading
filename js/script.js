@@ -83,3 +83,165 @@ window.addEventListener('DOMContentLoaded', () => {
         })
     })
 })
+
+// обработчики
+
+
+//поиск элементов
+const form = document.querySelector('.enter_form');
+const nameInput = document.querySelector('#name');
+const pageInput = document.querySelector('#size');
+const timeInput = document.querySelector('#time');
+const bookList = document.querySelector('#bookList');
+const emptyList = document.querySelector('#emptyList');
+//const li_length = document.querySelectorAll('.btn-action')
+
+let mas_book = [];
+checkEmptyList();
+// добавление книги
+form.addEventListener('submit', addBook);
+
+// удаление задачи
+bookList.addEventListener('click', deleteBook);
+
+//отмечаем задачу завершенной
+bookList.addEventListener('click', doneTask);
+
+
+function addBook(e){
+    e.preventDefault(); //отмена стандартного опведения страницы 
+
+    // дастаем текст из инпута
+    const nameText = nameInput.value;
+    const sizeText = pageInput.value;
+    const timeText = timeInput.value;
+
+    //объект который будет хранить данные по задачам
+
+    const newBook = {
+        id: Date.now(),         //генерируется милисекунда 
+        name: nameText,
+        size: sizeText,
+        time: timeText,
+        //fact: factText,
+        done: false
+    }
+    mas_book.push(newBook);
+    
+
+    // для отображения нужного класса, используется тернарный оператор
+    const cssClass = newBook.done ? "name_book name_book_done" : "name_book";
+     
+    // формирование разметки для новой книги
+    const taskHTML = /* <li id="${newBook.id}" class="list-group-item d-flex justify-content-between task-item">
+                        <span class="${cssClass}">${newBook.name}</span>
+                        <div class="task-item__buttons">
+                            <button type="button" data-action="done" class="btn-action">
+                                <img src="/img/done.png" alt="done" width="18" height="18">
+                            </button>
+                            <button type="button" data-action="delete" class="btn-action">
+                                <img src="/img/del.png" alt="done" width="18" height="18">
+                            </button>
+                        </div>
+                    </li> */
+                    `<li class="list_item" id="${newBook.id}">
+                    <span class="${cssClass}">${newBook.name}</span>
+                    <div class="wrapper">
+                        <div class="progress_wrapper">
+                            <div class="progress">
+                                <span class="progress__text">30%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress_input">
+                        <input type="number" class="progress_input__enter" id="pages" placeholder="Прочитано">
+                        <button type="submit" class="progress_input__btn">+</button>
+                    </div>
+                    <div class="list_item__buttons">
+                        <button type="button" data-action="done" class="btn-action">
+                            <img src="/img/done.png" alt="done" width="18" height="18" class="btn_size">
+                        </button>
+                        <button type="button" data-action="delete" class="btn-action">
+                            <img src="/img/delete.png" alt="done" width="18" height="18" class="btn_size">
+                        </button>
+                    </div>
+                </li>`;
+    
+    // Добавлем разметку на страницу
+    bookList.insertAdjacentHTML('beforeend', taskHTML);
+    
+
+    //очищаем инпут и возвращаем на него фокус
+    nameInput.value = "";
+    pageInput.value = "";
+    timeInput.value = "";
+    
+    // удаление сообщения
+   
+    checkEmptyList();
+    
+};
+
+function deleteBook(e){
+    if (e.target.dataset.action !== "delete"){return;}
+
+    if (e.target.dataset.action == "delete"){                 // обращение к атрибуту кнопки data-action
+        const parentNode = e.target.closest('li');            // поиск ближайшего родителя, родительская нода
+        const id = parentNode.id;                             // определяем id задачи  
+        console.log(parentNode);
+        console.log(id);
+
+        // ищем индекс который удаляем
+        const index = mas_book.findIndex(function(e){
+            if(e.id == id) {return true;}
+        })
+        mas_book.splice(index, 1);                              // удаление 1 элемента начиная с index
+        console.log(mas_book);
+
+        //удаляем задачу
+        parentNode.remove();
+
+        //показываем список дел пуст
+        /* if(tasksList.children.length == 1){
+            emptyList.classList.remove('none');
+        }   */  
+        checkEmptyList();
+    }   
+
+    
+     
+};
+function doneTask(e){
+    if (e.target.dataset.action !== "done"){return;}                 //сразу выходим из функции
+    
+    if (e.target.dataset.action == "done"){                         //обращение к атрибуту кнопки data-action
+        const parentNode = e.target.closest('li');                  // поиск ближайшего родителя, родительская нода
+        const bookTitle = parentNode.querySelector('.name_book'); // Находим нужный элемент
+        bookTitle.classList.toggle('name_book_done');              //toggle переключает, добавляет и удаляет при нажатиях на кнопку
+        
+        const id = parentNode.id;                             // определяем id задачи  
+        
+
+        // ищем индекс который выполняем
+        const book = mas_book.find(function(e){                // возвращает объект
+            if(e.id == id) {return true;}
+        })
+
+        book.done = !book.done;
+        //console.log(task);
+    }   
+
+};
+function checkEmptyList(){
+    if (mas_book.length == 0){
+        const emptyListHTML = `<li id="emptyList">
+        <img src="/img/wait.png" alt="empty" width="48">
+        <div class="empty-list__title">Вы пока ничего не читаете</div>
+    </li>`;
+    bookList.insertAdjacentHTML("afterbegin", emptyListHTML);
+    }
+    if (mas_book.length > 0){
+        const emptyElem = document.querySelector('#emptyList');
+        emptyElem ? emptyElem.remove() : null;
+    }
+}
