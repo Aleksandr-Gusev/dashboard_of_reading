@@ -1,0 +1,102 @@
+.card{
+    margin-top: 20px;
+}
+.list_item{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 6px 6px;
+    background-color:$bgc;
+    border-radius:6px;
+    margin-bottom: 1px;
+}
+#emptyList{
+    display: block;
+    text-align:center;
+    margin: 0 auto;
+    padding: 6px 6px;
+    background-color:$bgc;
+    border-radius:6px;
+    margin-bottom: 1px;
+}
+.progress_wrapper{
+    background-color:#4f5768;
+    width: 150px;
+    height: 20px;
+    vertical-align: middle;
+    border-radius:0;
+    padding: 0;
+    margin: 4px;
+}
+.progress{
+    display: inline-block;
+    background-color:$sc;
+    width: 50px;
+    height: 20px;
+    border-radius:0;
+    text-align: center;
+    &__text{
+        color:#ffffff;
+        font-weight: 300;
+    }
+    overflow:hidden;
+}
+.name_book{
+    width: 360px;
+    font-weight: 700;
+    padding-left: 6px;
+    color:$fc;
+}
+.btn-action{
+    border:none;
+    margin: 2px;
+    border-radius:4px;
+    
+    /* width: 36px;
+    height: 36px; */
+}
+/* .btn_size{
+    width: 90%;
+    height: 70%;
+} */
+button[data-action="done"]:hover{
+    background-color: $btnc;
+    transition: 0.5s;
+}
+button[data-action="delete"]:hover{
+    background-color: rgb(255, 170, 170);
+    transition: 0.5s;
+}
+
+.progress_input__enter{
+    width: 106px;
+    height: 26px;
+    background-color:$bgc;
+    font-weight: 300;
+	font-size: 13px;
+	padding: 6px 0 4px 10px;
+	border: 1px solid #cecece;
+	background: #f6f6f6;
+	border-radius: 6px;
+    vertical-align: middle; 
+}
+.progress_input__enter:focus{
+    outline:none;
+    border: 2px solid $sc;
+    box-shadow: 0 0 30px 0 $sc; 
+} 
+.progress_input__btn{
+    width: 30px;
+    border:none;
+    margin: 4px;
+    border-radius: 4px;
+    &:hover{
+        background-color: #3db2ff;
+        transition: 0.5s;
+    }
+}
+
+.empty-list__title{
+    color:$fc;
+    font-size: 500;
+}

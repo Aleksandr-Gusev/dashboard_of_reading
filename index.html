@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.min.css">
+    <title>build</title>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="container">
+                <div class="navbar">
+                    <img class="logo" src="/img/logo.png" alt=""></img>
+                    <div class="menu">
+                        <ul class="menu__list">
+                            <li class="menu__list-item"><a href="#" class="link">Портфолио</a></li>
+                            <li class="menu__list-item"><a href="#" class="link">Обо мне</a></li>
+                            <li class="menu__list-item"><a href="#" class="link">Контакты</a></li>
+                        </ul>
+                    </div>
+                    <a href="#" class="navbar__btn">Звонок</a>
+                    <div class="burger">
+                        <div class="burger__line" id="line1"></div>
+                        <div class="burger__line" id="line2"></div>
+                        <div class="burger__line" id="line3"></div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <ul class="burger__menu">
+            <li class="burger__menu_item"><a href="#" class="burger__menu_link">Портфолио</a></li>
+            <li class="burger__menu_item"><a href="#" class="burger__menu_link">Обо мне</a></li>
+            <li class="burger__menu_item"><a href="#" class="burger__menu_link">Контакты</a></li>
+        </ul>
+    </header>
+
+    <div class="container">
+        <div class="enter">
+            <form class="enter_form">
+                <input type="text" class="enter_form__input" id="name" placeholder="Название книги">
+                <input type="number" class="enter_form__input" id="size" placeholder="Кол. страниц">
+                <input type="number" class="enter_form__input" id="time" placeholder="Дней на прочтение">
+                <button type="submit" class="btn_enter">Добавить</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <ul id="bookList" class="list_group">
+                 <li id="emptyList">
+                    <img src="/img/wait.png" alt="empty" width="48">
+                    <div class="empty-list__title">Вы пока ничего не читаете</div>
+                </li>  
+                <li class="list_item">
+                    <span class="name_book">Книга Мирдада</span>
+                    <div class="wrapper">
+                        <div class="progress_wrapper">
+                            <div class="progress">
+                                <span class="progress__text">30%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress_input">
+                        <input type="number" class="progress_input__enter" id="pages" placeholder="Прочитано">
+                        <button type="submit" class="progress_input__btn">+</button>
+                    </div>
+                    <div class="list_item__buttons">
+                        <button type="button" data-action="done" class="btn-action">
+                            <img src="/img/done.png" alt="done" width="18" height="18" class="btn_size">
+                        </button>
+                        <button type="button" data-action="delete" class="btn-action">
+                            <img src="/img/delete.png" alt="done" width="18" height="18" class="btn_size">
+                        </button>
+                    </div>
+                </li> 
+            </ul>
+        </div>
+    </div>
+
+    <!-- форма отправки данных -->
+<div class="overlay">
+<div class="container">
+    <div class="box" id="consultation">
+        <form class="form" action="/mailer/smart.php" method="post">
+            <div class="modal_close">&times;</div>
+            <div class="form__header">Получите бесплатную консультацию</div>
+            <input name="name" class="input_contact" placeholder="Ваше имя" type="text">
+            <input name="surname" class="input_contact" placeholder="Ваша фамилия" type="text">
+            <input name="phone" class="input_contact" placeholder="Ваш телефон" type="phone">
+            <input name="email" class="input_contact" placeholder="e-mail" type="email">
+            <button data-modal="consultation" class="btn" type="submit">Отправить</button>
+        </form>
+    </div>
+</div>
+</div>
+    
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/jquery.maskedinput.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
