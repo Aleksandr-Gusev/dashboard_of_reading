@@ -35,14 +35,17 @@
     width: 20px;
     height: 20px;
     border-radius:0;
-    text-align: center;
+    text-align:center;
     &__text{
         position: absolute;
         color:#ffffff;
         font-weight: 300;
+        transform: translateX(-50%);
+        vertical-align: middle;
     }
     overflow:visible;
     box-shadow: 0 0 10px 0 $sc;
+    transition: 1s all;
 }
 .name_book{
     width: 360px;

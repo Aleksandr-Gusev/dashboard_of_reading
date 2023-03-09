@@ -94,7 +94,7 @@ const pageInput = document.querySelector('#size');
 const timeInput = document.querySelector('#time');
 const bookList = document.querySelector('#bookList');
 const emptyList = document.querySelector('#emptyList');
-//const li_length = document.querySelectorAll('.btn-action')
+
 
 let mas_book = [];
 checkEmptyList();
@@ -107,6 +107,9 @@ bookList.addEventListener('click', deleteBook);
 //отмечаем задачу завершенной
 bookList.addEventListener('click', doneTask);
 
+//ввод прочитанных страниц
+bookList.addEventListener('click', enterPages);
+
 
 function addBook(e){
     e.preventDefault(); //отмена стандартного опведения страницы 
@@ -115,6 +118,7 @@ function addBook(e){
     const nameText = nameInput.value;
     const sizeText = pageInput.value;
     const timeText = timeInput.value;
+    
 
     //объект который будет хранить данные по задачам
 
@@ -123,7 +127,7 @@ function addBook(e){
         name: nameText,
         size: sizeText,
         time: timeText,
-        //fact: factText,
+        fact: "",
         done: false
     }
     mas_book.push(newBook);
@@ -155,7 +159,7 @@ function addBook(e){
                     </div>
                     <div class="progress_input">
                         <input type="number" class="progress_input__enter" id="pages" placeholder="Прочитано">
-                        <button type="submit" class="progress_input__btn">+</button>
+                        <button type="submit" class="progress_input__btn" data-action="add">+</button>
                     </div>
                     <div class="list_item__buttons">
                         <button type="button" data-action="done" class="btn-action">
@@ -188,15 +192,14 @@ function deleteBook(e){
     if (e.target.dataset.action == "delete"){                 // обращение к атрибуту кнопки data-action
         const parentNode = e.target.closest('li');            // поиск ближайшего родителя, родительская нода
         const id = parentNode.id;                             // определяем id задачи  
-        console.log(parentNode);
-        console.log(id);
+        
 
         // ищем индекс который удаляем
         const index = mas_book.findIndex(function(e){
             if(e.id == id) {return true;}
         })
         mas_book.splice(index, 1);                              // удаление 1 элемента начиная с index
-        console.log(mas_book);
+        
 
         //удаляем задачу
         parentNode.remove();
@@ -211,6 +214,7 @@ function deleteBook(e){
     
      
 };
+
 function doneTask(e){
     if (e.target.dataset.action !== "done"){return;}                 //сразу выходим из функции
     
@@ -232,6 +236,7 @@ function doneTask(e){
     }   
 
 };
+
 function checkEmptyList(){
     if (mas_book.length == 0){
         const emptyListHTML = `<li id="emptyList">
@@ -244,4 +249,37 @@ function checkEmptyList(){
         const emptyElem = document.querySelector('#emptyList');
         emptyElem ? emptyElem.remove() : null;
     }
+}
+
+function enterPages(e){
+
+    if (e.target.dataset.action !== "add"){return;}
+
+    if (e.target.dataset.action == "add"){                         //обращение к атрибуту кнопки data-action
+        const parentNode = e.target.closest('li');                  // поиск ближайшего родителя, родительская нода
+        console.log(bookList);
+        const pagesFact = document.querySelectorAll('#pages');      // Находим нужный элемент
+        
+        const id = parentNode.id;                             // определяем id задачи  
+
+        const i = mas_book.findIndex(function(e){                // возвращает индекс
+            if(e.id == id) {return true;}
+        }) 
+        const factText = pagesFact[i].value;                    // записываем значение
+        
+        // ищем индекс который выполняем
+        const book = mas_book.find(function(e){                // возвращает объект
+            if(e.id == id) {return true;}
+        }) 
+        book.fact = factText;
+        let procent = Math.round(mas_book[i].fact / mas_book[i].size * 100 * 10) / 10;
+        let procent_for_progress = procent * 1.5;
+        if (procent > 100){
+            procent = 100;
+            procent_for_progress = 150;
+        }
+
+        const z = document.getElementsByClassName('progress')[i].style = `width: ${procent_for_progress}px`;    //изменение стиля
+        document.getElementsByClassName("progress__text")[i].textContent=`${procent}%`;                         // изменение текста
+}
 }
