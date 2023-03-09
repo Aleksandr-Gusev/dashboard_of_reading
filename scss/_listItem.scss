@@ -1,5 +1,7 @@
 .card{
     margin-top: 20px;
+    background: $bgc;
+    border: none;
 }
 .list_item{
     display: flex;
@@ -8,7 +10,9 @@
     padding: 6px 6px;
     background-color:$bgc;
     border-radius:6px;
-    margin-bottom: 1px;
+    margin: 2px;
+    border: 1px solid $fc;
+    /* box-shadow: 0 0 10px 0 $fc; */
 }
 #emptyList{
     display: block;
@@ -26,13 +30,13 @@
     vertical-align: middle;
     border-radius:0;
     padding: 0;
-    margin: 4px;
+    margin: 0px;
 }
 .progress{
     position: relative;
     display: inline-block;
     background-color:$sc;
-    width: 20px;
+    width: 0px;
     height: 20px;
     border-radius:0;
     text-align:center;
@@ -78,12 +82,12 @@ button[data-action="delete"]:hover{
 }
 
 .progress_input__enter{
-    width: 106px;
+    width: 108px;
     height: 26px;
     background-color:$bgc;
     font-weight: 300;
-	font-size: 13px;
-	padding: 6px 0 4px 10px;
+	font-size: 12px;
+	padding: 6px 0 4px 4px;
 	border: 1px solid #cecece;
 	background: #f6f6f6;
 	border-radius: 6px;
@@ -96,9 +100,11 @@ button[data-action="delete"]:hover{
 } 
 .progress_input__btn{
     width: 30px;
+    height: 26px;
     border:none;
     margin: 4px;
     border-radius: 4px;
+    font-size: 12px;
     &:hover{
         background-color: #00baff;
         transition: 0.5s;
@@ -111,5 +117,9 @@ button[data-action="delete"]:hover{
 }
 .name_book_done{
     text-decoration: line-through;
-    color: #6dac82;
+    color: $btnc;
+}
+
+.footer{
+    height: 100px;
 }

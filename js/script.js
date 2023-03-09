@@ -137,29 +137,19 @@ function addBook(e){
     const cssClass = newBook.done ? "name_book name_book_done" : "name_book";
      
     // формирование разметки для новой книги
-    const taskHTML = /* <li id="${newBook.id}" class="list-group-item d-flex justify-content-between task-item">
-                        <span class="${cssClass}">${newBook.name}</span>
-                        <div class="task-item__buttons">
-                            <button type="button" data-action="done" class="btn-action">
-                                <img src="/img/done.png" alt="done" width="18" height="18">
-                            </button>
-                            <button type="button" data-action="delete" class="btn-action">
-                                <img src="/img/del.png" alt="done" width="18" height="18">
-                            </button>
-                        </div>
-                    </li> */
+    const taskHTML = 
                     `<li class="list_item" id="${newBook.id}">
                     <span class="${cssClass}">${newBook.name}</span>
                     <div class="wrapper">
                         <div class="progress_wrapper">
                             <div class="progress">
-                                <span class="progress__text">30%</span>
+                                <span class="progress__text"></span>
                             </div>
                         </div>
                     </div>
                     <div class="progress_input">
-                        <input type="number" class="progress_input__enter" id="pages" placeholder="Прочитано">
-                        <button type="submit" class="progress_input__btn" data-action="add">+</button>
+                        <input type="number" class="progress_input__enter" id="pages" placeholder="прочитано стр." required min="0" step="1">
+                        <button type="submit" class="progress_input__btn" data-action="add">ОК</button>
                     </div>
                     <div class="list_item__buttons">
                         <button type="button" data-action="done" class="btn-action">
@@ -278,6 +268,7 @@ function enterPages(e){
             procent = 100;
             procent_for_progress = 150;
         }
+        if (factText < 0) {procent = 0};
 
         const z = document.getElementsByClassName('progress')[i].style = `width: ${procent_for_progress}px`;    //изменение стиля
         document.getElementsByClassName("progress__text")[i].textContent=`${procent}%`;                         // изменение текста

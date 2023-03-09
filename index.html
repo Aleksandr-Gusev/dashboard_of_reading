@@ -41,9 +41,9 @@
     <div class="container">
         <div class="enter">
             <form class="enter_form">
-                <input type="text" class="enter_form__input" id="name" placeholder="Название книги">
-                <input type="number" class="enter_form__input" id="size" placeholder="Кол. страниц">
-                <input type="number" class="enter_form__input" id="time" placeholder="Дней на прочтение">
+                <input type="text" class="enter_form__input" id="name" placeholder="Название книги" required>
+                <input type="number" class="enter_form__input" id="size" placeholder="Кол. страниц" required min="0">
+                <input type="number" class="enter_form__input" id="time" placeholder="Дней на прочтение" required min="0">
                 <button type="submit" class="btn_enter">Добавить</button>
             </form>
         </div>
@@ -96,6 +96,8 @@
     </div>
 </div>
 </div>
+
+
     
 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
