@@ -326,3 +326,11 @@ function enterPages(e){
 function saveToLocalStorage(){
     localStorage.setItem('books', JSON.stringify(mas_book));
 }
+
+//определение текущей даты
+/* var today = new Date();
+var dd = parseInt(String(today.getDate()).padStart(2, '0'));
+var mm = parseInt(String(today.getMonth() + 1).padStart(2, '0')); //January is 0!
+var yyyy = today.getFullYear();
+today = dd + '/' + mm + '/' + yyyy;
+console.log(today); */
