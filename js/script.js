@@ -107,9 +107,14 @@ if (localStorage.getItem('books')){
 mas_book.forEach(function(e){
     // для отображения нужного класса, используется тернарный оператор
     const cssClass = e.done ? "name_book name_book_done" : "name_book";
-     
+    //запись id сообщения
+    e.messageId = `m${e.id}`;                                                    
     // формирование разметки для новой задачи
     const taskHTML = `<li class="list_item" id="${e.id}">
+                        <div class="wrapper__img_message">
+                        <div class='message hide' id="m${e.id}"></div>
+                        <img src="./img/message.png" alt="done" width="18" height="18" class="img_message" id="m${e.id}">
+                        </div>
                         <span class="${cssClass}">${e.name}</span>
                         <div class="wrapper">
                             <div class="progress_wrapper">
@@ -119,7 +124,7 @@ mas_book.forEach(function(e){
                             </div>
                         </div>
                         <div class="progress_input">
-                            <input type="number" class="progress_input__enter" id="pages" placeholder="прочитано стр." required min="0" step="1">
+                            <input type="number" class="progress_input__enter" id="pages" placeholder="${e.fact}" required min="0" step="1">
                             <button type="submit" class="progress_input__btn" data-action="add">ОК</button>
                         </div>
                         <div class="list_item__buttons">
@@ -149,6 +154,31 @@ bookList.addEventListener('click', doneTask);
 //ввод прочитанных страниц
 bookList.addEventListener('click', enterPages);
 
+//**************************************************** сообщения
+bookList.addEventListener('mousemove', e => {
+    console.log(e.target.id);
+
+        for (let i = 0; i < mas_book.length; i++){
+            if (e.target.id == mas_book[i].messageId){
+                
+            const message = document.querySelector(`#${mas_book[i].messageId}`);
+            console.log(message);
+            message.classList.remove('hide');
+            message.classList.add('show');
+            }
+        }
+  });
+bookList.addEventListener('mouseout', e => {
+    for (let i = 0; i < mas_book.length; i++){
+        if (e.target.id == mas_book[i].messageId){
+            
+        const message = document.querySelector(`#${mas_book[i].messageId}`);
+        console.log(message);
+        message.classList.remove('show');
+        message.classList.add('hide');
+        }
+    }
+  });
 
 function addBook(e){
     e.preventDefault(); //отмена стандартного опведения страницы 
@@ -169,6 +199,7 @@ function addBook(e){
         fact: "",
         procent:"",
         procent_for_progress:"",
+        messageId:"",
         done: false
     }
     mas_book.push(newBook);
@@ -180,6 +211,7 @@ function addBook(e){
     // формирование разметки для новой книги
     const taskHTML = 
                     `<li class="list_item" id="${newBook.id}">
+        
                     <span class="${cssClass}">${newBook.name}</span>
                     <div class="wrapper">
                         <div class="progress_wrapper">
@@ -299,6 +331,8 @@ function enterPages(e){
         }) 
         const factText = pagesFact[i].value;                    // записываем значение
         
+        if (factText == ""){return};                            // выходим из функции если в инпут не ввели количество прочитаннх страниц
+
         // ищем индекс который выполняем
         const book = mas_book.find(function(e){                // возвращает объект
             if(e.id == id) {return true;}
@@ -320,6 +354,8 @@ function enterPages(e){
         book.procent_for_progress = procent_for_progress;
         saveToLocalStorage();       // сохраняем в хранилище
 }
+
+        
 }
 
 // Сохраняем в хранилище массив
@@ -334,3 +370,5 @@ var mm = parseInt(String(today.getMonth() + 1).padStart(2, '0')); //January is 0
 var yyyy = today.getFullYear();
 today = dd + '/' + mm + '/' + yyyy;
 console.log(today); */
+
+
