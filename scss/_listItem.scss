@@ -184,16 +184,39 @@ button[data-action="delete"]:hover{
 }
 .message{
     position: absolute;
-    width: 100px;
-    height: 30px;
+    width: 200px;
+    height: 40px;
     font-size: 12px;
-    top:-30px;
-    background-color: #f6f6f6;
+    left:30px;
+    top:-8px;
+    background-color:$sc;
+    border-radius:6px;
+    padding: 2px;
+    font-size: 12px;
+    font-weight: 300;
+    opacity: 0.9;
+    color:#ffffff;
     
+  
 }
 .show{
     display: block;
+
+    opacity: 0;
+    animation: ani 1s forwards;
+    @keyframes ani {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+      }
 }
 .hide{
-    display: none;
+    /* display: none; */
+    
+    
+    animation: an 1s forwards;
+    @keyframes an {
+        0% {opacity: 1;}
+        100% {opacity: 0;}
+      }
 }
+
