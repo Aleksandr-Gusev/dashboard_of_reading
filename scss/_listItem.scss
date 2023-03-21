@@ -75,11 +75,11 @@
 } */
 button[data-action="done"]:hover{
     background-color: $btnc;
-    transition: 0.5s;
+    transition: 0.3s;
 }
 button[data-action="delete"]:hover{
     background-color: rgb(255, 170, 170);
-    transition: 0.5s;
+    transition: 0.3s;
 }
 
 .progress_input__enter{
@@ -108,7 +108,7 @@ button[data-action="delete"]:hover{
     font-size: 12px;
     &:hover{
         background-color: #00baff;
-        transition: 0.5s;
+        transition: 0.3s;
     }
 }
 
@@ -203,7 +203,7 @@ button[data-action="delete"]:hover{
     display: block;
 
     opacity: 0;
-    animation: ani 1s forwards;
+    animation: ani 0.5s forwards;
     @keyframes ani {
         0% {opacity: 0;}
         100% {opacity: 1;}
@@ -213,7 +213,7 @@ button[data-action="delete"]:hover{
     /* display: none; */
     
     
-    animation: an 1s forwards;
+    animation: an 0.5s forwards;
     @keyframes an {
         0% {opacity: 1;}
         100% {opacity: 0;}

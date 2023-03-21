@@ -1,72 +1,5 @@
-$(document).ready(function(){
-    
-
-
-// ***********************появление формы и оверлея
-$('.navbar__btn').on('click', function(){
-    $('.overlay, #consultation').fadeIn('slow');
-});
-
-$('.modal_close').on('click', function(){
-    $('.overlay, #consultation').fadeOut('slow');
-});
-//****************************************** */
-
-function validateForm(form){
-    $(form).validate({
-        rules: {
-            name: { required: true,
-                    minlength: 2
-                },
-            surname: {  required: true,
-                        minlength: 2
-                    },
-            phone: "required",
-            email: {
-                required: true,
-                email: true
-            }
-        },
-        messages: {
-            name: {
-                required:"Пожалуйста, введите свое имя",
-                minlength: jQuery.validator.format("Введите не менее {0} - х символов")
-            },
-            surname: "Пожалуйста, введите свою фамилию",
-            phone: "Пожалуйста, введите свой номер телефона",
-            email: {
-                required: "Пожалуйста, введите свою электронную почту",
-                email: "Неправильно введен адрес почты"
-            }
-        }
-    });
-}
-
-validateForm('#consultation form');
-
-$('input[name=phone]').mask("+7 (999) 999-99-99");
-
-//*******************************Отправка на почту +  ********************************/
-
-$('form').submit(function(e){
-    e.preventDefault();             //отмена перезагрузки страницы при нажатии на кнопку отправки
-    $.ajax({
-        type: "POST",
-        url: "mailer/smart.php",    // обработчик
-        data: $(this).serialize()    //подготовка данных перед отправкой
-    }).done(function(){             // когда выполнили операцию то делаем следующую
-        $(this).find("input").val(""); //очистка инпутов после отправки
-        /* $('#consultation').fadeOut(); // скрытие форм
-        $('.overlay, #accept').fadeIn('slow'); */ // вывод формы с сообщением
-        $('form').trigger('reset');      // очистка форм     
-    });      
-    return false;                    
-}); 
-
-
-});
-
 window.addEventListener('DOMContentLoaded', () => {
+//************** отображение бургер меню */
     const menu = document.querySelector('.burger__menu'),
     menuItem = document.querySelectorAll('.burger__menu_item'),
     hamburger = document.querySelector('.burger');
@@ -82,7 +15,7 @@ window.addEventListener('DOMContentLoaded', () => {
             menu.classList.toggle('burger__menu_active');
         })
     })
-})
+
 
 // обработчики
 
@@ -116,7 +49,7 @@ let today = Date.parse(new Date());
 
 
 
-// проходим по всем элементам массива и рендерим страницу Сегодня прочитать: ${read_today}
+// проходим по всем элементам массива и рендерим страницу 
 mas_book.forEach(function(e){
     // для отображения нужного класса, используется тернарный оператор
     const cssClass = e.done ? "name_book name_book_done" : "name_book";
@@ -127,7 +60,7 @@ mas_book.forEach(function(e){
     const d = Math.floor(e.date_start / (1000 * 60 * 60 * 24)) + parseInt(e.time);
     const day = d - day_today;
     const read_today = Math.round((e.size - e.fact) / day);
-    console.log(read_today);
+    
     // формирование разметки для новой задачи 
     const taskHTML = `<li class="list_item" id="${e.id}">
                         <div class="wrapper__img_message">
@@ -172,7 +105,7 @@ bookList.addEventListener('click', doneTask);
 
 //ввод прочитанных страниц
 bookList.addEventListener('click', enterPages);
-
+//обновление данных при нажатии на ОК
 bookList.addEventListener('click', enterPages2);
 
 //**************************************** tooltip******************************************
@@ -271,7 +204,6 @@ function addBook(e){
     timeInput.value = "";
     
     // удаление сообщения
-   
     checkEmptyList();
     
 };
@@ -283,7 +215,6 @@ function deleteBook(e){
         const parentNode = e.target.closest('li');            // поиск ближайшего родителя, родительская нода
         const id = parentNode.id;                             // определяем id задачи  
         
-
         // ищем индекс который удаляем
         const index = mas_book.findIndex(function(e){
             if(e.id == id) {return true;}
@@ -295,14 +226,8 @@ function deleteBook(e){
         parentNode.remove();
 
         //показываем список дел пуст
-        /* if(tasksList.children.length == 1){
-            emptyList.classList.remove('none');
-        }   */  
         checkEmptyList();
     }   
-
-    
-     
 };
 
 function doneTask(e){
@@ -322,7 +247,7 @@ function doneTask(e){
         })
 
         book.done = !book.done;
-        //console.log(task);
+    
         saveToLocalStorage();       // сохраняем в хранилище
     }   
 
@@ -373,17 +298,12 @@ function enterPages(e){
         }
         if (factText < 0) {procent = 0};
 
-        
-
         const z = document.getElementsByClassName('progress')[i].style = `width: ${procent_for_progress}px`;    //изменение стиля
         document.getElementsByClassName("progress__text")[i].textContent=`${procent}%`;                         // изменение текста
         book.procent = procent;
         book.procent_for_progress = procent_for_progress;
         saveToLocalStorage();       // сохраняем в хранилище
 }
-
-
-       
 }
 
 // Сохраняем в хранилище массив
@@ -395,31 +315,52 @@ function saveToLocalStorage(){
 function enterPages2(e){
 //****************************обновление данных при нажание на ОК ******************
 
-    
-     
     for (let i = 0; i < mas_book.length; i++){
     if (e.target.classList[1] == `${mas_book[i].id}`){
-        //console.log(mas_book[3].id);
-        console.log(e.target.classList[1]);
-        //запись id сообщения
-         //e.messageId = `m${e.id}`;             
+               
         //Определение остатка дней на прочтение
         const day_today = Math.floor(today / (1000 * 60 * 60 * 24));
-        //console.log(day_today);
         const d = Math.floor(mas_book[i].date_start / (1000 * 60 * 60 * 24)) + parseInt(mas_book[i].time);
-        //console.log(day);
         const day = d - day_today;
-        //console.log(day);
         const read_today = Math.round((mas_book[i].size - mas_book[i].fact) / day);
-        console.log(read_today);
-                
         const liList = document.querySelector(`.m${mas_book[i].id}`);
         liList.innerText = "Осталось дней: " + day + "\n Сегодня прочитать страниц: " + read_today;
-        console.log(liList);
-    
     }
     }
 
 //**********************************************************************************
 }
 
+//************************************модальное окно********************/
+const modal = document.querySelector('.overlay'),
+      modalTrigger = document.querySelector('#donate'),
+      modalClose = document.querySelector('.modal_close');
+
+      // показ модального окна через определеннное время
+      const modalTimer = setTimeout(visio_modal, 120000);
+        
+        function visio_modal(){
+            modal.classList.toggle('show_modal');
+            clearInterval(modalTimer);
+        }
+
+        modalTrigger.addEventListener('click', visio_modal);
+        modalClose.addEventListener('click', visio_modal);
+
+
+
+        // закрытие модального окна при нажатии в другом месте
+        modal.addEventListener('click', (e)=>{
+        if (e.target == modal){
+            visio_modal();
+        }
+        });
+        // закрытие модального окна при нажатии Escape
+        document.addEventListener('keydown', (e)=>{
+        if (e.code == "Escape"){
+            visio_modal();
+        }
+        });
+
+        
+});

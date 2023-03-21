@@ -22,7 +22,7 @@
                             <li class="menu__list-item"><a href="#" class="link">Контакты</a></li>
                         </ul>
                     </div>
-                    <a href="#" class="navbar__btn"><img src="img/donate.png" alt="qq" style="width:50px;"></a>
+                    <a href="#" class="navbar__btn"><img src="img/donate.png" alt="qq" style="width:50px;" id="donate"></a>
                     <div class="burger">
                         <div class="burger__line" id="line1"></div>
                         <div class="burger__line" id="line2"></div>
@@ -84,14 +84,10 @@
 <div class="overlay">
 <div class="container">
     <div class="box" id="consultation">
-        <form class="form" action="/mailer/smart.php" method="post">
+        <form class="form">
             <div class="modal_close">&times;</div>
-            <div class="form__header">Получите бесплатную консультацию</div>
-            <input name="name" class="input_contact" placeholder="Ваше имя" type="text">
-            <input name="surname" class="input_contact" placeholder="Ваша фамилия" type="text">
-            <input name="phone" class="input_contact" placeholder="Ваш телефон" type="phone">
-            <input name="email" class="input_contact" placeholder="e-mail" type="email">
-            <button data-modal="consultation" class="btn" type="submit">Отправить</button>
+            <div class="form__header">Если это приложение понравилось Вам <br>  пожертвуйте немного на развитие <br> <br> XXXX-XXXX-XXXX-XXXX</div>
+            <img src="img/thanks.png" alt="" class="thanks">
         </form>
     </div>
 </div>
@@ -105,11 +101,7 @@
 </div>
 </div>  
 
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="js/jquery.validate.min.js"></script>
-    <script src="js/jquery.maskedinput.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
