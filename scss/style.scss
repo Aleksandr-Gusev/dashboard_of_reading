@@ -40,7 +40,36 @@ ul, li {
 	height: 60px;
 }
 
+.wrapper_date{
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 0;
+}
+.item_date{
+	
+	margin-right: 4px;
+	box-sizing:border-box;
+	margin-top: 2px;
+	font-size: 12px;
+	font-weight: 300;
+	line-height: 26px;
+	text-align: center;
+	background: $bgc;
+	color: white;
+}
 
+.header_text{
+	text-transform: uppercase;
+	color:$fc;
+	font-weight: 500;
+
+}
+
+.foot_stat{
+    height: 168px;
+    background-color: #1e232c;
+    padding-top: 10px;
+}
 
 
 @import "navbar";

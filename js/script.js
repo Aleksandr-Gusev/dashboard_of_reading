@@ -156,6 +156,7 @@ function addBook(e){
         procent_for_progress:"",
         messageId:"",
         date_start:date_start,
+        date_end:"",
         done: false
     }
     mas_book.push(newBook);
@@ -243,10 +244,14 @@ function doneTask(e){
 
         // ищем индекс который выполняем
         const book = mas_book.find(function(e){                // возвращает объект
-            if(e.id == id) {return true;}
+            if(e.id == id) {
+                
+                return true;
+            }
         })
 
         book.done = !book.done;
+        book.date_end = Date.now();                         // дата завершения чтения книги
     
         saveToLocalStorage();       // сохраняем в хранилище
     }   
