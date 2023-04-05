@@ -1,0 +1,22 @@
+.block_grafic{
+    display: flex;
+    justify-content: space-between;
+    height:200px;
+}
+.grafic{
+    width: 20px;
+    height: 2px;
+    background-color:$sc;
+}
+
+.month{
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 300;
+    margin-top: 6px;
+}
+.wrapper_grafic{
+   display: flex;
+   flex-direction: column;
+   justify-content:flex-end;
+}

@@ -37,12 +37,16 @@ today = dd + '/' + mm + '/' + yyyy; */
 
 
 let mas_book = [];
+let mas_done = [];
 
 
 //проверяем пусто ли в хранилище*****************************************************************
 if (localStorage.getItem('books')){
     mas_book = JSON.parse(localStorage.getItem('books'));
 }
+if (localStorage.getItem('books_done')){
+    mas_done = JSON.parse(localStorage.getItem('books_done'));
+}  
 
 //определение текущей даты 
 let today = Date.parse(new Date());
@@ -58,9 +62,13 @@ mas_book.forEach(function(e){
     //Определение остатка дней на прочтение
     const day_today = Math.floor(today / (1000 * 60 * 60 * 24));
     const d = Math.floor(e.date_start / (1000 * 60 * 60 * 24)) + parseInt(e.time);
-    const day = d - day_today;
-    const read_today = Math.round((e.size - e.fact) / day);
+    let day = d - day_today;
     
+    let read_today = Math.round((e.size - e.fact) / day);
+    if (day < 0){
+        day = "Срок истек";
+        read_today = Math.round(e.size - e.fact);
+    }
     // формирование разметки для новой задачи 
     const taskHTML = `<li class="list_item" id="${e.id}">
                         <div class="wrapper__img_message">
@@ -100,8 +108,12 @@ form.addEventListener('submit', addBook);
 // удаление задачи
 bookList.addEventListener('click', deleteBook);
 
+
 //отмечаем задачу завершенной
 bookList.addEventListener('click', doneTask);
+
+// удаление прочитанной книги 
+bookList.addEventListener('click', deleteBookDONE);
 
 //ввод прочитанных страниц
 bookList.addEventListener('click', enterPages);
@@ -231,6 +243,28 @@ function deleteBook(e){
     }   
 };
 
+function deleteBookDONE(e){
+    if (e.target.dataset.action !== "done"){return;}
+
+    if (e.target.dataset.action == "done"){                 // обращение к атрибуту кнопки data-action
+        const parentNode = e.target.closest('li');            // поиск ближайшего родителя, родительская нода
+        const id = parentNode.id;                             // определяем id задачи  
+        
+        // ищем индекс который удаляем
+        const index = mas_book.findIndex(function(e){
+            if(e.id == id) {return true;}
+        })
+        mas_book.splice(index, 1);                              // удаление 1 элемента начиная с index
+        saveToLocalStorage();                                       // сохраняем в хранилище
+
+        //удаляем задачу
+        parentNode.remove();
+
+        //показываем список дел пуст
+        checkEmptyList();
+    }   
+};
+
 function doneTask(e){
     if (e.target.dataset.action !== "done"){return;}                 //сразу выходим из функции
     
@@ -252,8 +286,14 @@ function doneTask(e){
 
         book.done = !book.done;
         book.date_end = Date.now();                         // дата завершения чтения книги
-    
+        
+        
         saveToLocalStorage();       // сохраняем в хранилище
+
+        mas_done.push(book);
+        localStorage.setItem('books_done', JSON.stringify(mas_done));// сохраняем в хранилище прочитанную книгу
+
+        
     }   
 
 };
@@ -314,6 +354,7 @@ function enterPages(e){
 // Сохраняем в хранилище массив
 function saveToLocalStorage(){
     localStorage.setItem('books', JSON.stringify(mas_book));
+    
 }
 
 
@@ -326,8 +367,13 @@ function enterPages2(e){
         //Определение остатка дней на прочтение
         const day_today = Math.floor(today / (1000 * 60 * 60 * 24));
         const d = Math.floor(mas_book[i].date_start / (1000 * 60 * 60 * 24)) + parseInt(mas_book[i].time);
-        const day = d - day_today;
-        const read_today = Math.round((mas_book[i].size - mas_book[i].fact) / day);
+        let day = d - day_today;
+        
+        let read_today = Math.round((mas_book[i].size - mas_book[i].fact) / day);
+        if (day < 0){
+            day = "Срок Истек";
+            read_today = Math.round(mas_book[i].size - mas_book[i].fact);
+        }
         const liList = document.querySelector(`.m${mas_book[i].id}`);
         liList.innerText = "Осталось дней: " + day + "\n Сегодня прочитать страниц: " + read_today;
     }

@@ -2,7 +2,13 @@
     margin-top: 20px;
     background: $bgc;
     border: none;
-    min-height: 695px;
+    
+}
+.card2{
+    margin-top: 20px;
+    background: $bgc;
+    border: none;
+    min-height: 600px;
 }
 .list_item{
     display: flex;
@@ -133,9 +139,9 @@ button[data-action="delete"]:hover{
 
 .foot{
     height: 90px;
-    
     background-color: #1e232c;
     padding-top: 10px;
+    margin-top: auto;
 }
 .footer{
     

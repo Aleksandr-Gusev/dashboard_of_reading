@@ -71,10 +71,17 @@ ul, li {
     padding-top: 10px;
 }
 
+.page{
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
 
 @import "navbar";
 @import "forms";
 @import "listItem";
 @import "modal";
+@import "grafic";
 
 
